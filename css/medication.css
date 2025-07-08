@@ -1,0 +1,196 @@
+body {
+    font-family: 'Nunito', Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe4f0 0%, #e6e6fa 100%);
+    margin: 0;
+    padding: 0;
+}
+header {
+    background: #1976d2;
+    color: #fff;
+    padding: 1.5em 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+header h1 {
+    margin: 0 0 0.5em 0;
+    font-size: 2em;
+}
+nav {
+    margin-top: 0.5em;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 1.5em;
+    font-weight: 500;
+    transition: text-decoration 0.2s;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+main {
+    padding: 2em;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.med-list-section {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+    padding: 2em;
+    margin-bottom: 2em;
+}
+.med-list-section h2 {
+    margin-top: 0;
+}
+#medication-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1em;
+}
+#medication-list li {
+    background: #fff;
+    margin-bottom: 0.5em;
+    padding: 1.5em;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+#medication-list li:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.medication-item {
+    background: #fff;
+    border: 1px solid #e9ecef !important;
+    transition: all 0.3s ease;
+}
+
+.medication-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: #ffb6b9 !important;
+}
+.med-info {
+    flex: 1;
+}
+.med-actions button {
+    margin-left: 0.5em;
+    background: #ffb6b9;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.3em 0.8em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.med-actions button:hover {
+    background: #ff8da1;
+}
+#add-medication-form {
+    display: flex;
+    gap: 1em;
+    margin-top: 1em;
+    flex-wrap: wrap;
+}
+#add-medication-form input {
+    padding: 0.5em;
+    border: 1px solid #b0bec5;
+    border-radius: 5px;
+    font-size: 1em;
+}
+#add-medication-form button {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em 1.5em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#add-medication-form button:hover {
+    background: #1565c0;
+}
+.bg-peach-gradient {
+    background: linear-gradient(90deg, #ffd6c1 0%, #ffe4f0 100%) !important;
+}
+.btn-pink {
+    background: #ffb6b9;
+    color: #fff;
+    border: none;
+}
+.btn-pink:hover {
+    background: #ff8da1;
+    color: #fff;
+}
+.text-pink {
+    color: #ff8da1 !important;
+}
+.sidebar {
+    background: linear-gradient(135deg, #e6e6fa 0%, #ffd6c1 100%);
+    color: #b39ddb;
+    min-width: 220px;
+    min-height: 100vh;
+    box-shadow: 2px 0 12px rgba(179, 157, 219, 0.07);
+}
+.sidebar-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 2em;
+    letter-spacing: 1px;
+    color: #b39ddb;
+}
+.sidebar .nav-link {
+    color: #b39ddb;
+    font-size: 1.1em;
+    font-weight: 500;
+    border-radius: 7px;
+    padding: 0.7em 1em;
+    margin-bottom: 0.5em;
+    transition: background 0.2s, color 0.2s;
+}
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+    background: #ffe4f0;
+    color: #ff8da1;
+}
+#logout-btn {
+    margin-top: 2em;
+    border-radius: 7px;
+    font-weight: 600;
+    background: #fff;
+    color: #ff8da1;
+    border: 2px solid #ffb6b9;
+    transition: background 0.2s, color 0.2s;
+}
+#logout-btn:hover {
+    background: #ffb6b9;
+    color: #fff;
+}
+.card {
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(179, 157, 219, 0.08);
+}
+.reminder-section {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(255, 182, 185, 0.08);
+    margin-bottom: 2em;
+}
+.reminder-popup {
+    background: #ffe4f0;
+    color: #ff8da1;
+    border: 1px solid #ffd6c1;
+    border-radius: 6px;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 1px 4px rgba(255,182,185,0.04);
+    animation: fadeIn 0.5s;
+    font-weight: 500;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+} 

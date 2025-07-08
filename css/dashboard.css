@@ -1,0 +1,131 @@
+body {
+    font-family: 'Nunito', Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe4f0 0%, #e6e6fa 100%);
+    margin: 0;
+    padding: 0;
+}
+.bg-lavender {
+    background: #e6e6fa !important;
+    color: #b39ddb !important;
+}
+.bg-peach-gradient {
+    background: linear-gradient(90deg, #ffd6c1 0%, #ffe4f0 100%) !important;
+}
+.btn-pink {
+    background: #ffb6b9;
+    color: #fff;
+    border: none;
+}
+.btn-pink:hover {
+    background: #ff8da1;
+    color: #fff;
+}
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    background: linear-gradient(135deg, #e6e6fa 0%, #ffd6c1 100%);
+    color: #b39ddb;
+    min-width: 220px;
+    min-height: 100vh;
+    box-shadow: 2px 0 12px rgba(179, 157, 219, 0.07);
+}
+.sidebar-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 2em;
+    letter-spacing: 1px;
+    color: #b39ddb;
+}
+.sidebar .nav-link {
+    color: #b39ddb;
+    font-size: 1.1em;
+    font-weight: 500;
+    border-radius: 7px;
+    padding: 0.7em 1em;
+    margin-bottom: 0.5em;
+    transition: background 0.2s, color 0.2s;
+}
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+    background: #ffe4f0;
+    color: #ff8da1;
+}
+#logout-btn {
+    margin-top: 2em;
+    border-radius: 7px;
+    font-weight: 600;
+    background: #fff;
+    color: #ff8da1;
+    border: 2px solid #ffb6b9;
+    transition: background 0.2s, color 0.2s;
+}
+#logout-btn:hover {
+    background: #ffb6b9;
+    color: #fff;
+}
+.dashboard-main {
+    flex: 1;
+    padding: 3em 4em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+.welcome-section {
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(179, 157, 219, 0.08);
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.welcome-section h1 {
+    margin: 0 0 0.7em 0;
+    font-size: 2em;
+    color: #b39ddb;
+}
+.fun-fact-card {
+    background: #e6e6fa;
+    color: #b39ddb;
+    border-radius: 8px;
+    padding: 1em 1.5em;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-top: 0.5em;
+    box-shadow: 0 1px 4px rgba(179, 157, 219, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+}
+.glucose-section, .reminder-section {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(255, 182, 185, 0.08);
+    margin-bottom: 2em;
+}
+.glucose-section h2, .reminder-section h2 {
+    margin-top: 0;
+    color: #ff8da1;
+}
+#glucose-status {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+#reminder-popups {
+    min-height: 40px;
+}
+.reminder-popup {
+    background: #ffe4f0;
+    color: #ff8da1;
+    border: 1px solid #ffd6c1;
+    border-radius: 6px;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 1px 4px rgba(255,182,185,0.04);
+    animation: fadeIn 0.5s;
+    font-weight: 500;
+    width: 100%;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

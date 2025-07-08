@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caregiver Dashboard - Diapro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/medication.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/caregiver-dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { 
+            font-family: 'Nunito', Arial, sans-serif; 
+            background: linear-gradient(135deg, #ffe4f0 0%, #e6e6fa 100%);
+        }
+        .sidebar { 
+            min-width: 220px; 
+            min-height: 100vh; 
+            background: linear-gradient(135deg, #e6e6fa 0%, #ffd6c1 100%);
+        }
+        .nav-link { 
+            color: #b39ddb; 
+            font-weight: 500; 
+            font-size: 1.1em; 
+            border-radius: 7px; 
+            padding: 0.7em 1em; 
+            margin-bottom: 0.5em; 
+            transition: background 0.2s, color 0.2s; 
+            text-decoration: none; 
+            display: block;
+        }
+        .nav-link.active, .nav-link:hover { 
+            background: #ffe4f0; 
+            color: #ff8da1; 
+        }
+        .readonly-badge {
+            background: #ff8da1;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 8px;
+        }
+        .caregiver-notes {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .notes-textarea {
+            width: 100%;
+            min-height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: inherit;
+        }
+        .refill-request-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+        .refill-request-item.pending {
+            border-left: 4px solid #ffc107;
+            background: #fffbf0;
+        }
+        .refill-request-item.completed {
+            border-left: 4px solid #28a745;
+            background: #f8fff9;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout d-flex">
+        <aside class="sidebar d-flex flex-column align-items-start p-4">
+            <div class="sidebar-title mb-4 d-flex align-items-center gap-2">
+                <i class="bi bi-people-fill fs-2 text-pink"></i>
+                <span class="fw-bold fs-3" style="color:#b39ddb;">Caregiver</span>
+            </div>
+            <div class="mb-3 text-muted small">
+                <i class="bi bi-person-check"></i> Viewing Data for: <span id="patient-name-display">Loading...</span>
+                <span class="readonly-badge">Read Only</span>
+            </div>
+            <nav class="nav flex-column w-100 mb-4">
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="bi bi-speedometer2"></i> Patient Dashboard
+                </a>
+                <a href="#medications" class="nav-link" data-section="medications">
+                    <i class="bi bi-capsule"></i> Medications
+                </a>
+                <a href="#profile" class="nav-link" data-section="profile">
+                    <i class="bi bi-person"></i> Patient Profile
+                </a>
+                <a href="#glucose" class="nav-link" data-section="glucose">
+                    <i class="bi bi-activity"></i> Glucose Levels
+                </a>
+                <a href="#refills" class="nav-link" data-section="refills">
+                    <i class="bi bi-arrow-repeat"></i> Refill Requests
+                </a>
+                <a href="#notes" class="nav-link" data-section="notes">
+                    <i class="bi bi-sticky"></i> My Notes
+                </a>
+            </nav>
+            <button id="logout-btn" class="btn btn-outline-danger mt-auto w-100">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </aside>
+        
+        <main class="dashboard-main flex-fill p-4">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section">
+                <div class="welcome-section card shadow-sm p-4 mb-4 border-0 bg-white">
+                    <h1 class="fw-bold mb-2" style="color:#b39ddb;">
+                        Patient Dashboard <span class="readonly-badge">Read Only</span>
+                    </h1>
+                    <p class="text-muted">Viewing data for: <span id="patient-name">Loading...</span></p>
+                    <small class="text-muted">Data refreshes automatically every 5 seconds</small>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-4 mb-4 border-0 bg-white">
+                            <h3><i class="bi bi-activity text-primary"></i> Recent Glucose Levels</h3>
+                            <canvas id="glucose-chart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-4 mb-4 border-0 bg-white">
+                            <h3><i class="bi bi-capsule text-pink"></i> Current Medications</h3>
+                            <div id="medications-summary">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm p-4 mb-4 border-0 bg-white">
+                    <h3><i class="bi bi-calendar-event text-info"></i> Calendar & Appointments</h3>
+                    <div id="calendar-summary">Loading...</div>
+                </div>
+            </section>
+
+            <!-- Medications Section -->
+            <section id="medications-section" class="content-section" style="display: none;">
+                <div class="card shadow-sm p-4 mb-4 border-0 bg-white">
+                    <h2><i class="bi bi-capsule text-pink"></i> Patient Medications <span class="readonly-badge">Read Only</span></h2>
+                    <div id="medications-list">Loading...</div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile-section" class="content-section" style="display: none;">
+                <div class="card shadow-sm p-4 mb-4 border-0 bg-white">
+                    <h2><i class="bi bi-person text-info"></i> Patient Profile <span class="readonly-badge">Read Only</span></h2>
+                    <div id="profile-info">Loading...</div>
+                </div>
+            </section>
+
+            <!-- Glucose Section -->
+            <section id="glucose-section" class="content-section" style="display: none;">
+                <div class="card shadow-sm p-4 mb-4 border-0 bg-white">
+                    <h2><i class="bi bi-activity text-primary"></i> Glucose History <span class="readonly-badge">Read Only</span></h2>
+                    <canvas id="detailed-glucose-chart" width="800" height="300"></canvas>
+                    <div id="glucose-stats" class="mt-3">Loading...</div>
+                </div>
+            </section>
+
+            <!-- Refill Requests Section -->
+            <section id="refills-section" class="content-section" style="display: none;">
+                <div class="card shadow-sm p-4 mb-4 border-0 bg-white">
+                    <h2><i class="bi bi-arrow-repeat text-warning"></i> Refill Requests <span class="readonly-badge">Read Only</span></h2>
+                    <div id="refill-requests">Loading...</div>
+                </div>
+            </section>
+
+            <!-- Notes Section -->
+            <section id="notes-section" class="content-section" style="display: none;">
+                <div class="card shadow-sm p-4 mb-4 border-0 bg-white">
+                    <h2><i class="bi bi-sticky text-success"></i> Caregiver Notes</h2>
+                    <p class="text-muted">Leave notes for the patient</p>
+                    <textarea id="caregiver-notes-text" class="notes-textarea" placeholder="Write notes for the patient..."></textarea>
+                    <button id="save-notes-btn" class="btn btn-pink mt-3">
+                        <i class="bi bi-save"></i> Save Notes
+                    </button>
+                    <div id="notes-status" class="mt-2"></div>
+                </div>
+                
+                <div class="card shadow-sm p-4 border-0 bg-white">
+                    <h3><i class="bi bi-clock-history"></i> Notes History</h3>
+                    <div id="notes-history">Loading...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/caregiver-dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

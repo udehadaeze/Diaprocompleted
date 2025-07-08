@@ -1,0 +1,125 @@
+/* optional, but to keep consistent */
+#patientData {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: #f8f9fa;
+  }
+  .readonly {
+    background-color: #e9ecef;
+    color: #495057;
+  }
+  
+/* Caregiver Dashboard Styles */
+
+body {
+    font-family: 'Nunito', Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe4f0 0%, #e6e6fa 100%);
+}
+
+.sidebar {
+    min-width: 220px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e6e6fa 0%, #ffd6c1 100%);
+}
+
+.nav-link, .nav-link:active, .nav-link:focus, .nav-link:hover {
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+.nav-link {
+    color: #b39ddb;
+    font-weight: 500;
+    font-size: 1.1em;
+    border-radius: 7px;
+    padding: 0.7em 1em;
+    margin-bottom: 0.5em;
+    transition: background 0.2s, color 0.2s;
+    display: block;
+}
+
+.nav-link.active, .nav-link:hover {
+    background: #ffe4f0;
+    color: #ff8da1;
+}
+
+.readonly-badge {
+    background: #ff8da1;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+
+.caregiver-notes {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.notes-textarea {
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.btn-pink {
+    background: #ffb6b9;
+    color: #fff;
+    border: none;
+}
+
+.btn-pink:hover {
+    background: #ff8da1;
+    color: #fff;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.list-group-item {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.list-group-item:first-child {
+    border-top: 1px solid #dee2e6;
+}
+
+.table th {
+    border-top: none;
+    color: #6c757d;
+    font-weight: 600;
+}
+
+.text-pink {
+    color: #ffb6b9 !important;
+}
+
+.text-primary {
+    color: #b39ddb !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-info {
+    color: #17a2b8 !important;
+}
+  
