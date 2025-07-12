@@ -1,4 +1,4 @@
-/* optional, but to keep consistent */
+
 #patientData {
     border: 1px solid #ddd;
     padding: 1rem;
@@ -10,7 +10,7 @@
     color: #495057;
   }
   
-/* Caregiver Dashboard Styles */
+
 
 body {
     font-family: 'Nunito', Arial, sans-serif;

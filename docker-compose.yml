@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15
+    container_name: diapro_db
+    environment:
+      POSTGRES_DB: diapro_db
+      POSTGRES_USER: diapro_user
+      POSTGRES_PASSWORD: diapro_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - diapro_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U diapro_user -d diapro_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build: .
+    container_name: diapro_backend
+    environment:
+      DATABASE_URL: postgresql://diapro_user:diapro_password@db:5432/diapro_db
+      SECRET_KEY: your-secret-key-change-in-production
+      DEBUG: "true"
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - diapro_network
+    volumes:
+      - ./backend:/app/backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  diapro_network:
+    driver: bridge 

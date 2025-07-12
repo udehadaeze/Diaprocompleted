@@ -1,42 +1,99 @@
-const profileForm = document.getElementById('profile-form');
-const profileName = document.getElementById('profile-name');
-const profileAge = document.getElementById('profile-age');
-const profileGender = document.getElementById('profile-gender');
-const profileWeight = document.getElementById('profile-weight');
-const profileMessage = document.getElementById('profile-message');
+const API_BASE = "/api/users";
+const TOKEN_KEY = "access_token";
 
-// Load profile from localStorage
-function loadProfile() {
-    const data = JSON.parse(localStorage.getItem('diapro_profile') || '{}');
-    if (data.name) profileName.value = data.name;
-    if (data.age) profileAge.value = data.age;
-    if (data.gender) profileGender.value = data.gender;
-    if (data.weight) profileWeight.value = data.weight;
+const profileForm = document.getElementById("profile-form");
+const profileName = document.getElementById("profile-name");
+const profileAge = document.getElementById("profile-age");
+const profileGender = document.getElementById("profile-gender");
+const profileWeight = document.getElementById("profile-weight");
+const profileMessage = document.getElementById("profile-message");
+
+function getToken() {
+  return sessionStorage.getItem(TOKEN_KEY);
 }
 
-// Save profile to localStorage
-profileForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const data = {
-        name: profileName.value,
-        age: profileAge.value,
+
+async function loadProfile() {
+  try {
+    const res = await fetch(`${API_BASE}/me`, {
+      headers: { Authorization: "Bearer " + getToken() },
+    });
+    if (!res.ok) throw new Error("Failed to fetch profile");
+    const user = await res.json();
+
+    if (user.full_name) profileName.value = user.full_name;
+    if (user.age) profileAge.value = user.age;
+    if (user.gender) profileGender.value = user.gender;
+    if (user.weight) profileWeight.value = user.weight;
+  } catch (err) {
+    showMessage("Could not load profile data.", "error");
+  }
+}
+
+
+profileForm.addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  try {
+    const res = await fetch(`${API_BASE}/me`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getToken(),
+      },
+      body: JSON.stringify({
+        full_name: profileName.value,
+        age: parseInt(profileAge.value) || null,
         gender: profileGender.value,
-        weight: profileWeight.value
-    };
-    localStorage.setItem('diapro_profile', JSON.stringify(data));
-    profileMessage.textContent = 'Profile saved!';
-    setTimeout(() => profileMessage.textContent = '', 3000);
+        weight: parseFloat(profileWeight.value) || null,
+      }),
+    });
+
+    if (!res.ok) throw new Error("Failed to update profile");
+
+    profileMessage.textContent = "Profile saved successfully!";
+    profileMessage.style.color = "#28a745";
+    setTimeout(() => (profileMessage.textContent = ""), 3000);
+  } catch (err) {
+    profileMessage.textContent = "Could not save profile. Please try again.";
+    profileMessage.style.color = "#d32f2f";
+    setTimeout(() => (profileMessage.textContent = ""), 3000);
+  }
 });
 
-// Initial load
-loadProfile();
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Allow access if patient or caregiver is logged in
-    const isPatient = !!sessionStorage.getItem('diapro_session');
-    const isCaregiver = !!sessionStorage.getItem('caregiverPatientId') && !!sessionStorage.getItem('caregiverCode');
-    if (!isPatient && !isCaregiver) {
-        window.location.href = 'login.html';
-        return;
+function showMessage(message, type = "info") {
+  const messageDiv = document.createElement("div");
+  messageDiv.className = `alert alert-${
+    type === "success" ? "success" : type === "error" ? "danger" : "info"
+  } alert-dismissible fade show`;
+  messageDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+  profileForm.parentNode.insertBefore(messageDiv, profileForm.nextSibling);
+  setTimeout(() => {
+    if (messageDiv.parentNode) {
+      messageDiv.remove();
     }
-}); 
+  }, 3000);
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (!getToken()) {
+    window.location.href = "login.html";
+    return;
+  }
+  loadProfile();
+
+  
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+      sessionStorage.removeItem(TOKEN_KEY);
+      sessionStorage.removeItem("diapro_session");
+      window.location.href = "login.html";
+    });
+  }
+});
