@@ -16,6 +16,7 @@ docker-compose up --build
 
 
 
+
 ## Features
 
 - **User Authentication**: Secure login/signup with JWT tokens
