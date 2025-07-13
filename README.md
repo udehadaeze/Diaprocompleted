@@ -1,4 +1,8 @@
-##  How to Run This Project in GitHub Codespaces
+# Diapro - Diabetes Management Application
+
+A comprehensive diabetes management application with a modern frontend and FastAPI backend, featuring glucose tracking, medication management, caregiver access, and more.
+
+## How to Run This Project in GitHub Codespaces
 
 To test the Diapro application inside **GitHub Codespaces**, follow these steps:
 
@@ -10,7 +14,7 @@ To test the Diapro application inside **GitHub Codespaces**, follow these steps:
 
    ```bash
    docker-compose up --build
-````
+   ```
 
 3. **Access the Application**
    After the build finishes, open the forwarded port (usually port `8000`).
@@ -20,7 +24,7 @@ To test the Diapro application inside **GitHub Codespaces**, follow these steps:
    On the landing page, click **"Sign Up"** to register a new user.
 
 5. **Explore the App**
-   Once logged in, you’ll be redirected to the homepage where you can explore:
+   Once logged in, you'll be redirected to the homepage where you can explore:
 
    * Glucose tracking with visual charts
    * Medication management
@@ -28,12 +32,11 @@ To test the Diapro application inside **GitHub Codespaces**, follow these steps:
    * Caregiver features
    * And more!
 
-That’s it! The app should now be fully functional inside Codespaces.
+That's it! The app should now be fully functional inside Codespaces.
 
 ---
 
-
-##  Features
+## Features
 
 * **User Authentication**: Secure login/signup with JWT tokens
 * **Glucose Tracking**: Monitor blood glucose levels with charts
@@ -45,7 +48,7 @@ That’s it! The app should now be fully functional inside Codespaces.
 
 ---
 
-##  Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -69,7 +72,7 @@ That’s it! The app should now be fully functional inside Codespaces.
 
 ---
 
-##  Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -114,7 +117,7 @@ docker-compose up -d --build
 
 ---
 
-##  Development Setup
+## Development Setup
 
 ### 1. Create Virtual Environment
 
@@ -149,7 +152,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ---
 
-##  API Endpoints
+## API Endpoints
 
 ### Authentication
 
@@ -161,33 +164,33 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 * `GET /api/users/me` – Get current user profile
 * `PUT /api/users/me` – Update user profile
 
-###  Medications
+### Medications
 
 * `GET /api/medications/` – Get user medications
 * `POST /api/medications/` – Add new medication
 * `PUT /api/medications/{id}` – Update medication
 * `DELETE /api/medications/{id}` – Delete medication
 
-###  Glucose
+### Glucose
 
 * `GET /api/glucose/` – Get glucose readings
 * `POST /api/glucose/` – Add glucose reading
 * `DELETE /api/glucose/` – Clear all readings
 
-###  Calendar
+### Calendar
 
 * `GET /api/calendar/` – Get calendar events
 * `POST /api/calendar/` – Create new event
 * `PUT /api/calendar/{id}` – Update event
 * `DELETE /api/calendar/{id}` – Delete event
 
-###  Pharmacy
+### Pharmacy
 
 * `GET /api/pharmacy/` – Get pharmacy orders
 * `POST /api/pharmacy/` – Create new order
 * `PUT /api/pharmacy/{id}` – Update order status
 
-###  Caregiver
+### Caregiver
 
 * `GET /api/caregiver/codes` – Get caregiver codes
 * `POST /api/caregiver/codes` – Generate new code
@@ -196,7 +199,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ---
 
-##  Database Schema
+## Database Schema
 
 Main tables used:
 
@@ -210,7 +213,7 @@ Main tables used:
 
 ---
 
-##  Security Features
+## Security Features
 
 * **Password Hashing**: Bcrypt
 * **JWT Tokens**: Stateless authentication
@@ -220,7 +223,7 @@ Main tables used:
 
 ---
 
-##  Docker Commands
+## Docker Commands
 
 ```bash
 # Build and start services
@@ -244,7 +247,7 @@ docker-compose down -v
 
 ---
 
-##  Environment Variables
+## Environment Variables
 
 | Variable                      | Description                      | Default                                                             |
 | ----------------------------- | -------------------------------- | ------------------------------------------------------------------- |
@@ -256,7 +259,7 @@ docker-compose down -v
 
 ---
 
-##  Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -266,14 +269,8 @@ docker-compose down -v
 
 ---
 
-##  Support
+## Support
 
-For issues or questions, please open an issue in this repository.
+For issues or questions, please open an issue in this repository. 
 
-```
-
----
-
-Let me know if you'd like this converted into a PDF, styled README preview, or if you want to include screenshots, badges, or deployment buttons!
-```
 
