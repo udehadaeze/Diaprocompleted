@@ -14,6 +14,7 @@ _The letters are all lowercase — make sure to use lowercase **k** for both use
 docker-compose up --build
 
 
+
 ## Features
 
 - **User Authentication**: Secure login/signup with JWT tokens
