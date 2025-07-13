@@ -7,9 +7,10 @@ A comprehensive diabetes management application with a modern frontend and FastA
 
 **Username:** `kimmy`  
 **Password:** `kim123456!`  
-_The letters are all lowercase — make sure to use lowercase **k** for both username and password._
+All letters are lowercase — be sure to use a lowercase **k** for both the username and password.
 
-**To start the system on GitHub Codespaces**, please run:
+**To start the system on GitHub Codespaces**, run the following command in the terminal:
+
 ```bash
 docker-compose up --build
 
