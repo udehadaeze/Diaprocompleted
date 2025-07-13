@@ -2,7 +2,6 @@
 
 A comprehensive diabetes management application with a modern frontend and FastAPI backend, featuring glucose tracking, medication management, caregiver access, and more.
 
-
 # 🔐 Login Credentials
 
 **Username:** `kimmy`  
@@ -13,9 +12,9 @@ All letters are lowercase — be sure to use a lowercase **k** for both the user
 
 ```bash
 docker-compose up --build
+```
 
-
-  1.## Features
+## Features
 
 - **User Authentication**: Secure login/signup with JWT tokens
 - **Glucose Tracking**: Monitor blood glucose levels with charts
@@ -210,7 +209,6 @@ docker-compose down -v
 3. Make your changes
 4. Add tests if applicable
 5. Submit a pull request
-
 
 
 ## Support
