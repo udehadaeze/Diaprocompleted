@@ -15,9 +15,7 @@ All letters are lowercase — be sure to use a lowercase **k** for both the user
 docker-compose up --build
 
 
-
-
-### Features
+## Features
 
 - **User Authentication**: Secure login/signup with JWT tokens
 - **Glucose Tracking**: Monitor blood glucose levels with charts
