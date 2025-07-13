@@ -3,10 +3,7 @@
 A comprehensive diabetes management application with a modern frontend and FastAPI backend, featuring glucose tracking, medication management, caregiver access, and more.
 
 # 🔐 Login Credentials
-
-**Username:** `kimmy`  
-**Password:** `kim123456!`  
-All letters are lowercase — be sure to use a lowercase **k** for both the username and password.
+start by Signing up on the signup page
 
 **To start the system on GitHub Codespaces**, run the following command in the terminal:
 
