@@ -17,7 +17,7 @@ docker-compose up --build
 
 
 
-## Features
+### Features
 
 - **User Authentication**: Secure login/signup with JWT tokens
 - **Glucose Tracking**: Monitor blood glucose levels with charts
