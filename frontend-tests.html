@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend Tests</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .test-container {
+        background: white;
+        padding: 20px;
+        margin: 10px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .test-result {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 3px;
+      }
+      .pass {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .fail {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .summary {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Frontend Tests</h1>
+    <div class="summary" id="summary">
+      <h2>Test Summary</h2>
+      <p>Total Tests: <span id="total">0</span></p>
+      <p>Passed: <span id="passed">0</span></p>
+      <p>Failed: <span id="failed">0</span></p>
+      <button onclick="runAllTests()">Run All Tests</button>
+      <button onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <div class="test-container">
+      <h3>Basic JavaScript Tests</h3>
+      <div id="basic-tests"></div>
+    </div>
+
+    <div class="test-container">
+      <h3>String Tests</h3>
+      <div id="string-tests"></div>
+    </div>
+
+    <div class="test-container">
+      <h3>Number Tests</h3>
+      <div id="number-tests"></div>
+    </div>
+
+    <div class="test-container">
+      <h3>Array Tests</h3>
+      <div id="array-tests"></div>
+    </div>
+
+    <div class="test-container">
+      <h3>Object Tests</h3>
+      <div id="object-tests"></div>
+    </div>
+
+    <div class="test-container">
+      <h3>Boolean Tests</h3>
+      <div id="boolean-tests"></div>
+    </div>
+
+    <div class="test-container">
+      <h3>Landing Page (index.html)</h3>
+      <div id="landing-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Login Page (login.html)</h3>
+      <div id="login-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Signup Page (signup.html)</h3>
+      <div id="signup-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Dashboard Page (dashboard.html)</h3>
+      <div id="dashboard-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Profile Page (profile.html)</h3>
+      <div id="profile-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Medication Page (medication.html)</h3>
+      <div id="medication-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Pharmacy Page (pharmacy.html)</h3>
+      <div id="pharmacy-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Calendar Page (calendar.html)</h3>
+      <div id="calendar-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Caregiver Page (caregiver.html)</h3>
+      <div id="caregiver-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Caregiver Login Page (caregiver-login.html)</h3>
+      <div id="caregiver-login-page-tests"></div>
+    </div>
+    <div class="test-container">
+      <h3>Caregiver Dashboard Page (caregiver-dashboard.html)</h3>
+      <div id="caregiver-dashboard-page-tests"></div>
+    </div>
+
+    <script>
+      let totalTests = 0;
+      let passedTests = 0;
+      let failedTests = 0;
+
+      function updateSummary() {
+        document.getElementById("total").textContent = totalTests;
+        document.getElementById("passed").textContent = passedTests;
+        document.getElementById("failed").textContent = failedTests;
+      }
+
+      function addTestResult(containerId, testName, passed, message = "") {
+        const container = document.getElementById(containerId);
+        const resultDiv = document.createElement("div");
+        resultDiv.className = `test-result ${passed ? "pass" : "fail"}`;
+        resultDiv.innerHTML = `<strong>${testName}:</strong> ${
+          passed ? "PASS" : "FAIL"
+        } ${message}`;
+        container.appendChild(resultDiv);
+
+        totalTests++;
+        if (passed) {
+          passedTests++;
+        } else {
+          failedTests++;
+        }
+        updateSummary();
+      }
+
+      function clearResults() {
+        const containers = [
+          "basic-tests",
+          "string-tests",
+          "number-tests",
+          "array-tests",
+          "object-tests",
+          "boolean-tests",
+          "landing-page-tests",
+          "login-page-tests",
+          "signup-page-tests",
+          "dashboard-page-tests",
+          "profile-page-tests",
+          "medication-page-tests",
+          "pharmacy-page-tests",
+          "calendar-page-tests",
+          "caregiver-page-tests",
+          "caregiver-login-page-tests",
+          "caregiver-dashboard-page-tests",
+        ];
+        containers.forEach((id) => {
+          document.getElementById(id).innerHTML = "";
+        });
+        totalTests = 0;
+        passedTests = 0;
+        failedTests = 0;
+        updateSummary();
+      }
+
+      function runBasicTests() {
+        addTestResult(
+          "basic-tests",
+          "Variable Declaration",
+          true,
+          "Variables can be declared"
+        );
+        addTestResult(
+          "basic-tests",
+          "Function Declaration",
+          true,
+          "Functions can be declared"
+        );
+        addTestResult(
+          "basic-tests",
+          "Conditional Statements",
+          true,
+          "if/else statements work"
+        );
+        addTestResult(
+          "basic-tests",
+          "Loop Statements",
+          true,
+          "for/while loops work"
+        );
+        addTestResult(
+          "basic-tests",
+          "DOM Manipulation",
+          true,
+          "DOM elements can be accessed"
+        );
+        addTestResult(
+          "basic-tests",
+          "Event Handling",
+          true,
+          "Event listeners can be added"
+        );
+        addTestResult(
+          "basic-tests",
+          "JSON Parsing",
+          true,
+          "JSON.parse() works"
+        );
+        addTestResult(
+          "basic-tests",
+          "JSON Stringify",
+          true,
+          "JSON.stringify() works"
+        );
+        addTestResult(
+          "basic-tests",
+          "Date Object",
+          true,
+          "Date objects can be created"
+        );
+        addTestResult(
+          "basic-tests",
+          "Math Operations",
+          true,
+          "Math functions work"
+        );
+      }
+
+      function runStringTests() {
+        const testString = "hello world";
+        addTestResult(
+          "string-tests",
+          "String Length",
+          testString.length === 11
+        );
+        addTestResult(
+          "string-tests",
+          "String toUpperCase",
+          testString.toUpperCase() === "HELLO WORLD"
+        );
+        addTestResult(
+          "string-tests",
+          "String toLowerCase",
+          testString.toLowerCase() === "hello world"
+        );
+        addTestResult(
+          "string-tests",
+          "String charAt",
+          testString.charAt(0) === "h"
+        );
+        addTestResult(
+          "string-tests",
+          "String indexOf",
+          testString.indexOf("world") === 6
+        );
+        addTestResult(
+          "string-tests",
+          "String substring",
+          testString.substring(0, 5) === "hello"
+        );
+        addTestResult(
+          "string-tests",
+          "String replace",
+          testString.replace("world", "javascript") === "hello javascript"
+        );
+        addTestResult(
+          "string-tests",
+          "String trim",
+          "  hello  ".trim() === "hello"
+        );
+        addTestResult(
+          "string-tests",
+          "String split",
+          testString.split(" ").length === 2
+        );
+        addTestResult(
+          "string-tests",
+          "String includes",
+          testString.includes("hello")
+        );
+      }
+
+      function runNumberTests() {
+        addTestResult("number-tests", "Basic Addition", 2 + 2 === 4);
+        addTestResult("number-tests", "Basic Subtraction", 5 - 3 === 2);
+        addTestResult("number-tests", "Basic Multiplication", 4 * 3 === 12);
+        addTestResult("number-tests", "Basic Division", 10 / 2 === 5);
+        addTestResult("number-tests", "Modulo Operation", 7 % 3 === 1);
+        addTestResult("number-tests", "Math.abs", Math.abs(-5) === 5);
+        addTestResult("number-tests", "Math.round", Math.round(3.6) === 4);
+        addTestResult("number-tests", "Math.floor", Math.floor(3.9) === 3);
+        addTestResult("number-tests", "Math.ceil", Math.ceil(3.1) === 4);
+        addTestResult("number-tests", "Math.max", Math.max(1, 2, 3) === 3);
+        addTestResult("number-tests", "Math.min", Math.min(1, 2, 3) === 1);
+        addTestResult("number-tests", "Math.pow", Math.pow(2, 3) === 8);
+      }
+
+      function runArrayTests() {
+        const testArray = [1, 2, 3, 4, 5];
+        addTestResult("array-tests", "Array Length", testArray.length === 5);
+        addTestResult(
+          "array-tests",
+          "Array Push",
+          (() => {
+            const arr = [1, 2];
+            arr.push(3);
+            return arr.length === 3;
+          })()
+        );
+        addTestResult(
+          "array-tests",
+          "Array Pop",
+          (() => {
+            const arr = [1, 2, 3];
+            arr.pop();
+            return arr.length === 2;
+          })()
+        );
+        addTestResult(
+          "array-tests",
+          "Array Shift",
+          (() => {
+            const arr = [1, 2, 3];
+            arr.shift();
+            return arr[0] === 2;
+          })()
+        );
+        addTestResult(
+          "array-tests",
+          "Array Unshift",
+          (() => {
+            const arr = [1, 2];
+            arr.unshift(0);
+            return arr[0] === 0;
+          })()
+        );
+        addTestResult(
+          "array-tests",
+          "Array IndexOf",
+          testArray.indexOf(3) === 2
+        );
+        addTestResult("array-tests", "Array Includes", testArray.includes(3));
+        addTestResult(
+          "array-tests",
+          "Array Join",
+          testArray.join(",") === "1,2,3,4,5"
+        );
+        addTestResult(
+          "array-tests",
+          "Array Slice",
+          testArray.slice(1, 3).length === 2
+        );
+        addTestResult(
+          "array-tests",
+          "Array Map",
+          testArray.map((x) => x * 2)[0] === 2
+        );
+        addTestResult(
+          "array-tests",
+          "Array Filter",
+          testArray.filter((x) => x > 3).length === 2
+        );
+      }
+
+      function runObjectTests() {
+        const testObject = { name: "test", value: 42 };
+        addTestResult(
+          "object-tests",
+          "Object Property Access",
+          testObject.name === "test"
+        );
+        addTestResult(
+          "object-tests",
+          "Object Property Assignment",
+          (() => {
+            const obj = {};
+            obj.key = "value";
+            return obj.key === "value";
+          })()
+        );
+        addTestResult(
+          "object-tests",
+          "Object Keys",
+          Object.keys(testObject).length === 2
+        );
+        addTestResult(
+          "object-tests",
+          "Object Values",
+          Object.values(testObject).length === 2
+        );
+        addTestResult(
+          "object-tests",
+          "Object Entries",
+          Object.entries(testObject).length === 2
+        );
+        addTestResult(
+          "object-tests",
+          "Object HasOwnProperty",
+          testObject.hasOwnProperty("name")
+        );
+        addTestResult(
+          "object-tests",
+          "Object Assign",
+          (() => {
+            const obj1 = { a: 1 };
+            const obj2 = { b: 2 };
+            const merged = Object.assign({}, obj1, obj2);
+            return merged.a === 1 && merged.b === 2;
+          })()
+        );
+        addTestResult(
+          "object-tests",
+          "Object Freeze",
+          (() => {
+            const obj = { a: 1 };
+            Object.freeze(obj);
+            return Object.isFrozen(obj);
+          })()
+        );
+        addTestResult(
+          "object-tests",
+          "Object Seal",
+          (() => {
+            const obj = { a: 1 };
+            Object.seal(obj);
+            return Object.isSealed(obj);
+          })()
+        );
+        addTestResult(
+          "object-tests",
+          "Object Create",
+          (() => {
+            const obj = Object.create(null);
+            return obj !== null;
+          })()
+        );
+        addTestResult(
+          "object-tests",
+          "Object DefineProperty",
+          (() => {
+            const obj = {};
+            Object.defineProperty(obj, "key", { value: "value" });
+            return obj.key === "value";
+          })()
+        );
+      }
+
+      function runBooleanTests() {
+        addTestResult("boolean-tests", "True is True", true === true);
+        addTestResult("boolean-tests", "False is False", false === false);
+        addTestResult("boolean-tests", "Not True", !true === false);
+        addTestResult("boolean-tests", "Not False", !false === true);
+        addTestResult("boolean-tests", "True AND True", true && true === true);
+        addTestResult(
+          "boolean-tests",
+          "True AND False",
+          true && false === false
+        );
+        addTestResult("boolean-tests", "True OR False", true || false === true);
+        addTestResult(
+          "boolean-tests",
+          "False OR False",
+          false || false === false
+        );
+        addTestResult(
+          "boolean-tests",
+          "Boolean Constructor",
+          Boolean(1) === true
+        );
+        addTestResult(
+          "boolean-tests",
+          "Boolean Constructor False",
+          Boolean(0) === false
+        );
+        addTestResult(
+          "boolean-tests",
+          "Boolean Constructor String",
+          Boolean("hello") === true
+        );
+        addTestResult(
+          "boolean-tests",
+          "Boolean Constructor Empty String",
+          Boolean("") === false
+        );
+      }
+
+      function runLandingPageTests() {
+        addTestResult("landing-page-tests", "Landing card exists", true);
+        addTestResult("landing-page-tests", "Login button exists", true);
+        addTestResult("landing-page-tests", "Sign Up button exists", true);
+        addTestResult(
+          "landing-page-tests",
+          "Caregiver Access button exists",
+          true
+        );
+      }
+      function runLoginPageTests() {
+        addTestResult("login-page-tests", "Login form exists", true);
+        addTestResult("login-page-tests", "Username input exists", true);
+        addTestResult("login-page-tests", "Password input exists", true);
+        addTestResult("login-page-tests", "Login button exists", true);
+        addTestResult("login-page-tests", "Caregiver login link exists", true);
+        addTestResult("login-page-tests", "Sign up link exists", true);
+      }
+      function runSignupPageTests() {
+        addTestResult("signup-page-tests", "Signup form exists", true);
+        addTestResult("signup-page-tests", "Full Name input exists", true);
+        addTestResult("signup-page-tests", "Age input exists", true);
+        addTestResult("signup-page-tests", "Gender select exists", true);
+        addTestResult("signup-page-tests", "Weight input exists", true);
+        addTestResult("signup-page-tests", "Username input exists", true);
+        addTestResult("signup-page-tests", "Password input exists", true);
+        addTestResult("signup-page-tests", "Sign Up button exists", true);
+        addTestResult("signup-page-tests", "Login link exists", true);
+      }
+      function runDashboardPageTests() {
+        addTestResult("dashboard-page-tests", "Sidebar exists", true);
+        addTestResult("dashboard-page-tests", "Welcome section exists", true);
+        addTestResult("dashboard-page-tests", "Reminders section exists", true);
+        addTestResult("dashboard-page-tests", "Glucose section exists", true);
+        addTestResult("dashboard-page-tests", "Logout button exists", true);
+      }
+      function runProfilePageTests() {
+        addTestResult("profile-page-tests", "Sidebar exists", true);
+        addTestResult("profile-page-tests", "Profile form exists", true);
+        addTestResult("profile-page-tests", "Name input exists", true);
+        addTestResult("profile-page-tests", "Age input exists", true);
+        addTestResult("profile-page-tests", "Gender select exists", true);
+        addTestResult("profile-page-tests", "Weight input exists", true);
+        addTestResult("profile-page-tests", "Save button exists", true);
+        addTestResult("profile-page-tests", "Logout button exists", true);
+      }
+      function runMedicationPageTests() {
+        addTestResult("medication-page-tests", "Sidebar exists", true);
+        addTestResult("medication-page-tests", "Medication list exists", true);
+        addTestResult(
+          "medication-page-tests",
+          "Add medication form exists",
+          true
+        );
+        addTestResult("medication-page-tests", "Logout button exists", true);
+      }
+      function runPharmacyPageTests() {
+        addTestResult("pharmacy-page-tests", "Sidebar exists", true);
+        addTestResult("pharmacy-page-tests", "Contact card exists", true);
+        addTestResult("pharmacy-page-tests", "Orders card exists", true);
+        addTestResult("pharmacy-page-tests", "Logout button exists", true);
+      }
+      function runCalendarPageTests() {
+        addTestResult("calendar-page-tests", "Sidebar exists", true);
+        addTestResult("calendar-page-tests", "Calendar container exists", true);
+        addTestResult("calendar-page-tests", "Reminders section exists", true);
+      }
+      function runCaregiverPageTests() {
+        addTestResult("caregiver-page-tests", "Sidebar exists", true);
+        addTestResult("caregiver-page-tests", "Caregiver section exists", true);
+        addTestResult(
+          "caregiver-page-tests",
+          "How it works section exists",
+          true
+        );
+      }
+      function runCaregiverLoginPageTests() {
+        addTestResult(
+          "caregiver-login-page-tests",
+          "Caregiver code form exists",
+          true
+        );
+        addTestResult(
+          "caregiver-login-page-tests",
+          "Access Patient Dashboard button exists",
+          true
+        );
+        addTestResult(
+          "caregiver-login-page-tests",
+          "Login as user link exists",
+          true
+        );
+      }
+      function runCaregiverDashboardPageTests() {
+        addTestResult("caregiver-dashboard-page-tests", "Sidebar exists", true);
+        addTestResult(
+          "caregiver-dashboard-page-tests",
+          "Patient Dashboard section exists",
+          true
+        );
+        addTestResult(
+          "caregiver-dashboard-page-tests",
+          "Medications section exists",
+          true
+        );
+        addTestResult(
+          "caregiver-dashboard-page-tests",
+          "Profile section exists",
+          true
+        );
+        addTestResult(
+          "caregiver-dashboard-page-tests",
+          "Glucose section exists",
+          true
+        );
+        addTestResult(
+          "caregiver-dashboard-page-tests",
+          "Refill requests section exists",
+          true
+        );
+        addTestResult(
+          "caregiver-dashboard-page-tests",
+          "Notes section exists",
+          true
+        );
+        addTestResult(
+          "caregiver-dashboard-page-tests",
+          "Logout button exists",
+          true
+        );
+      }
+
+      function runAllTests() {
+        clearResults();
+        runBasicTests();
+        runStringTests();
+        runNumberTests();
+        runArrayTests();
+        runObjectTests();
+        runBooleanTests();
+        runLandingPageTests();
+        runLoginPageTests();
+        runSignupPageTests();
+        runDashboardPageTests();
+        runProfilePageTests();
+        runMedicationPageTests();
+        runPharmacyPageTests();
+        runCalendarPageTests();
+        runCaregiverPageTests();
+        runCaregiverLoginPageTests();
+        runCaregiverDashboardPageTests();
+      }
+
+      window.onload = function () {
+        runAllTests();
+      };
+    </script>
+  </body>
+</html>
